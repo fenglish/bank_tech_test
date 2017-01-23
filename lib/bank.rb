@@ -20,6 +20,10 @@ class Bank
     puts 'No transaction'
   end
 
+  def show_balance
+    caluclate_balance
+  end
+
   private
 
   def over_withdraw?(money)
