@@ -21,17 +21,15 @@ class Bank
     if no_transaction?
       puts 'No transaction'
     else
-      puts ("date").ljust(12," ")+"|| credit  || debit   || balance"
       @transaction.each do |key,values|
         values.each do |value|
           total += value
-          credit = "        "
-          debit  = "        "
+          credit, debit = "", ""
           value > 0 ? credit = sprintf('%.2f', value).to_s : debit = sprintf('%.2f', -value).to_s
-          statement.unshift("#{key.ljust(12," ")}|| #{credit.ljust(8," ")}|| #{debit.ljust(8," ")}|| #{sprintf('%.2f',total)}")
+          statement.unshift("\n#{key.ljust(12," ")}|| #{credit.ljust(8," ")}|| #{debit.ljust(8," ")}|| #{sprintf('%.2f',total)}")
         end
       end
-      puts statement
+      puts header_for_statement + statement.inject(:+)
     end
   end
 
@@ -66,5 +64,9 @@ class Bank
     else
       @transaction[transaction_date] = [money]
     end
+  end
+
+  def header_for_statement
+    ("date").ljust(12," ") + "|| " + ("credit").ljust(8," ") + "|| " + ("debit").ljust(8," ") + "|| balance"
   end
 end

@@ -57,20 +57,30 @@ I want to print my bank statement
  => true
 
 2.3.1 :003 > my_bank = Bank.new
- => #<Bank:0x007fd9f98f0360 @transaction={}>
+ => #<Bank:0x007fb7bc9189a0 @transaction={}>
 
-2.3.1 :004 > today = Date.today
- => #<Date: 2017-01-23 ((2457777j,0s,0n),+0s,2299161j)>
+2.3.1 :004 > date1 = Date.new(2012, 1, 10)
+ => #<Date: 2012-01-10 ((2455937j,0s,0n),+0s,2299161j)>
 
-2.3.1 :005 > my_bank.deposite(50, today)
- => [50]
+2.3.1 :005 > my_bank.deposite(1000, date1)
+ => [1000]
 
-2.3.1 :006 > my_bank.withdraw(30, today)
- => [50, -30]
+2.3.1 :006 > date2 = Date.new(2012, 1, 13)
+ => #<Date: 2012-01-13 ((2455940j,0s,0n),+0s,2299161j)>
 
-2.3.1 :007 > my_bank.print_bank_statement
+2.3.1 :007 > my_bank.deposite(2000, date2)
+ => [2000]
+
+2.3.1 :008 > date3 = Date.new(2012, 1, 14)
+ => #<Date: 2012-01-14 ((2455941j,0s,0n),+0s,2299161j)>
+
+2.3.1 :009 > my_bank.withdraw(500, date3)
+ => [-500]
+
+2.3.1 :010 > my_bank.print_bank_statement
 date        || credit  || debit   || balance
-23/01/2017  ||         || 30.00   || 20.00
-23/01/2017  || 50.00   ||         || 50.00
+14/01/2012  ||         || 500.00  || 2500.00
+13/01/2012  || 2000.00 ||         || 3000.00
+10/01/2012  || 1000.00 ||         || 1000.00
  => nil
 ```
