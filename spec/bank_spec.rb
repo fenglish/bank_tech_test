@@ -6,6 +6,7 @@ describe Bank do
 
   it { is_expected.to respond_to :deposite }
   it { is_expected.to respond_to :withdraw }
+  it { is_expected.to respond_to :print_bank_statement }
 
   context "#deposite" do
     it "should show 50 when passed 50 " do
@@ -26,7 +27,13 @@ describe Bank do
       expect( bank.withdraw(30) ).to eq 70
     end
     it "should raise an error when the passed number is bigger than the number of the account" do
-      expect{ bank.withdraw(20) }.to raise_error "Can not withdraw the amount of money!"
+      expect{ bank.withdraw(20) }.to raise_error "You cannot withdraw over the amount of money you have deposited."
+    end
+  end
+
+  context "#print_bank_statement" do
+    it "should print 'No transaction' as a default" do
+      expect{ bank.print_bank_statement }.to output("No transaction\n").to_stdout
     end
   end
 

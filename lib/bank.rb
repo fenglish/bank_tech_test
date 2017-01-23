@@ -11,8 +11,12 @@ class Bank
   end
 
   def withdraw(money)
-    raise "Can not withdraw the amount of money!" if over_withdraw?(money)
+    raise "You cannot withdraw over the amount of money you have deposited." if over_withdraw?(money)
     @account -= money
+  end
+
+  def print_bank_statement
+    puts 'No transaction'
   end
 
   private

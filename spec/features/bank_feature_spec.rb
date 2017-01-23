@@ -18,4 +18,14 @@ describe Bank do
     bank.withdraw(30)
     expect(bank.account).to eq 70
   end
+
+  # As a bank customer
+  # so that I can see my money transaction ordered by date
+  # I want to see my bank statement
+  it "should show the money transaction ordered by date" do
+    bank.deposite(100)
+    bank.withdraw(30)
+    expect(bank.print_bank_statement).to eq ""
+  end
+
 end

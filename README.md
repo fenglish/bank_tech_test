@@ -30,8 +30,8 @@ I want to withdraw my money I've deposited
 ```
 ```
 As a bank customer
-so that I can see my money transaction with the date
-I want to see my bank statement
+so that I can see my money transaction ordered by date
+I want to print my bank statement
 ```
 ###Technology
 - Ruby
