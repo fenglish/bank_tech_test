@@ -3,6 +3,7 @@ require "bank"
 describe Bank do
 
   let(:bank){ described_class.new }
+  let(:date1){ Date }
 
   it { is_expected.to respond_to :deposite }
   it { is_expected.to respond_to :withdraw }
@@ -10,24 +11,24 @@ describe Bank do
 
   context "#deposite" do
     it "should stored the date and the number" do
-      transaction_date = Date.today.strftime("%d/%m/%Y")
+      allow(Date).to receive_message_chain(:today,:strftime).and_return("01/01/2017")
       bank.deposite(50)
-      expect( bank.transaction ).to eq({ transaction_date => [50] })
+      expect( bank.transaction ).to eq({ "01/01/2017" => [50] })
     end
     it "should stored just the number when the date is already exist" do
-      transaction_date = Date.today.strftime("%d/%m/%Y")
+      allow(Date).to receive_message_chain(:today,:strftime).and_return("01/01/2017")
       bank.deposite(50)
       bank.deposite(30)
-      expect( bank.transaction ).to eq({ transaction_date => [30,50] })
+      expect( bank.transaction ).to eq({ "01/01/2017" => [30,50] })
     end
   end
 
   context "#withdraw" do
     it "should stored the date and the minus number" do
-      transaction_date = Date.today.strftime("%d/%m/%Y")
+      allow(Date).to receive_message_chain(:today,:strftime).and_return("01/01/2017")
       bank.deposite(100)
       bank.withdraw(30)
-      expect( bank.transaction ).to eq({ transaction_date => [-30,100] })
+      expect( bank.transaction ).to eq({ "01/01/2017" => [-30,100] })
     end
     it "should raise an error when the passed number is bigger than the number of the account" do
       expect{ bank.withdraw(20) }.to raise_error "You cannot withdraw over the amount of money you have deposited."

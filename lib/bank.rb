@@ -7,7 +7,6 @@ class Bank
   end
 
   def deposite(money)
-    transaction_date = Date.today.strftime("%d/%m/%Y")
     store_transaction(money)
   end
 
