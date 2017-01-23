@@ -25,11 +25,10 @@ describe Bank do
   # so that I can see my money transaction ordered by date
   # I want to see my bank statement
   it "should show the money transaction ordered by date" do
-    pending("until soring out format of the bank statement")
     transaction_date = Date.today
     bank.deposite(100, transaction_date)
     bank.withdraw(30, transaction_date)
-    expect(bank.print_bank_statement).to eq ""
+    expect{ bank.print_bank_statement }.to output("date        || credit  || debit   || balance\n23/01/2017  ||         || 30.00   || 70.00\n23/01/2017  || 100.00  ||         || 100.00\n").to_stdout
   end
 
 end
