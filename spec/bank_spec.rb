@@ -39,6 +39,6 @@ describe Bank do
       expect{ bank.print_bank_statement }.to output("No transaction\n").to_stdout
     end
   end
-  
+
 
 end
