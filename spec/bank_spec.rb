@@ -13,6 +13,10 @@ describe Bank do
     it "should show 30 when passed 30" do
       expect(bank.deposite(30)).to eq 30
     end
+    it "should show 80 when passed 30 after passing 50" do
+      bank.deposite(50)
+      expect(bank.deposite(30)).to eq 80
+    end
   end
-  
+
 end
