@@ -23,21 +23,21 @@ describe Bank do
   end
 
   context "#withdraw" do
-    it "should substract the passed number from the account" do
-      pending("until sorting out deposite")
+    it "should stored the date and the minus number" do
+      transaction_date = Date.today.strftime("%d/%m/%Y")
       bank.deposite(100)
-      expect( bank.withdraw(30) ).to eq 70
+      bank.withdraw(30)
+      expect( bank.account ).to eq({ transaction_date => [-30,100] })
     end
     it "should raise an error when the passed number is bigger than the number of the account" do
-      pending("until sorting out deposite")
       expect{ bank.withdraw(20) }.to raise_error "You cannot withdraw over the amount of money you have deposited."
     end
   end
 
-  context "#print_bank_statement" do
-    it "should print 'No transaction' as a default" do
-      expect{ bank.print_bank_statement }.to output("No transaction\n").to_stdout
-    end
-  end
+  # context "#print_bank_statement" do
+  #   it "should print 'No transaction' as a default" do
+  #     expect{ bank.print_bank_statement }.to output("No transaction\n").to_stdout
+  #   end
+  # end
 
 end
