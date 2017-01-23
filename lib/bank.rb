@@ -11,7 +11,13 @@ class Bank
   end
 
   def withdraw(money)
-    raise "Can not withdraw the amount of money!" if @account < money
+    raise "Can not withdraw the amount of money!" if over_withdraw?(money)
     @account -= money
+  end
+
+  private
+
+  def over_withdraw?(money)
+    @account < money
   end
 end
