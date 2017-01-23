@@ -6,7 +6,7 @@ describe Bank do
   # so that I can keep my money at a safe place
   # I want to deposit my money
   it "should keep amount of money when user want to deposit" do
-    bank.deposit(50)
+    bank.deposite(50)
     expect(bank.account).to eq 50
   end
 end
