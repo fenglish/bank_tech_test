@@ -1,9 +1,9 @@
 class Bank
 
-  attr_reader :account
+  attr_reader :transaction
 
   def initialize
-    @account = {}
+    @transaction = {}
   end
 
   def deposite(money)
@@ -31,21 +31,21 @@ class Bank
   end
 
   def the_date_exist?(transaction_date)
-    @account.has_key?(transaction_date)
+    @transaction.has_key?(transaction_date)
   end
 
   def caluclate_balance
-    return 0 if @account == {}
-    @account.values.flatten.inject(:+)
+    return 0 if @transaction == {}
+    @transaction.values.flatten.inject(:+)
   end
 
   def store_transaction(money)
     transaction_date = Date.today.strftime("%d/%m/%Y")
     if the_date_exist?(transaction_date)
-      target = @account[transaction_date]
-      @account[transaction_date] = target.unshift(money)
+      target = @transaction[transaction_date]
+      @transaction[transaction_date] = target.unshift(money)
     else
-      @account[transaction_date] = [money]
+      @transaction[transaction_date] = [money]
     end
   end
 end
