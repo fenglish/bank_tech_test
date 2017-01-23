@@ -25,6 +25,9 @@ describe Bank do
       bank.deposite(100)
       expect(bank.withdraw(30)).to eq 70
     end
+    it "should raise an error when the passed number is bigger than the number of the account" do
+      expect{ bank.withdraw(20) }.to raise_error "Can not withdraw the amount of money!"
+    end
   end
 
 end
