@@ -34,10 +34,10 @@ describe Bank do
     end
   end
 
-  # context "#print_bank_statement" do
-  #   it "should print 'No transaction' as a default" do
-  #     expect{ bank.print_bank_statement }.to output("No transaction\n").to_stdout
-  #   end
-  # end
+  context "#print_bank_statement" do
+    it "should print 'No transaction' as a default" do
+      expect{ bank.print_bank_statement }.to output("No transaction\n").to_stdout
+    end
+  end
 
 end
