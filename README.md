@@ -20,13 +20,23 @@ date       || credit || debit   || balance
 ###User stories
 ```
 As a bank customer  
-so that I can keep my money at a safe place
+so that I can use the bank
+I want to create my account
+```
+```
+As a bank customer  
+so that I can keep my money at a safe place until I need it
 I want to deposit my money
 ```
 ```
 As a bank customer
 so that I can take out my money whenever I want
 I want to withdraw my money I've deposited
+```
+```
+As a bank customer  
+so that I can see how much I've deposited in the account
+I want to see the balance
 ```
 ```
 As a bank customer
