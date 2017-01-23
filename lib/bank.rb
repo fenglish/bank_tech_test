@@ -1,5 +1,5 @@
 class Bank
   def deposite(money)
-    50
+    money
   end
 end
