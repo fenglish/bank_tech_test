@@ -6,8 +6,8 @@ describe Bank do
   # so that I can keep my money at a safe place
   # I want to deposit my money
   it "should keep the amount of money when user want to deposit" do
-    transaction_date = Date.today.strftime("%d/%m/%Y")
-    bank.deposite(50)
+    transaction_date = Date.today
+    bank.deposite(50, transaction_date)
     expect( bank.show_balance ).to eq 50
   end
 
@@ -15,8 +15,9 @@ describe Bank do
   # so that I can take out my money whenever I want
   # I want to withdraw my money I've deposited
   it "should take out the amount of money when user want to withdraw" do
-    bank.deposite(100)
-    bank.withdraw(30)
+    transaction_date = Date.today
+    bank.deposite(100, transaction_date)
+    bank.withdraw(30, transaction_date)
     expect( bank.show_balance ).to eq 70
   end
 
@@ -25,8 +26,9 @@ describe Bank do
   # I want to see my bank statement
   it "should show the money transaction ordered by date" do
     pending("until soring out format of the bank statement")
-    bank.deposite(100)
-    bank.withdraw(30)
+    transaction_date = Date.today
+    bank.deposite(100, transaction_date)
+    bank.withdraw(30, transaction_date)
     expect(bank.print_bank_statement).to eq ""
   end
 

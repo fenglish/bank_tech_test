@@ -6,13 +6,13 @@ class Bank
     @transaction = {}
   end
 
-  def deposite(money)
-    store_transaction(money)
+  def deposite(money, date)
+    store_transaction(money, date)
   end
 
-  def withdraw(money)
+  def withdraw(money, date)
     raise "You cannot withdraw over the amount of money you have deposited." if over_withdraw?(money)
-    store_transaction(-money)
+    store_transaction(-money, date)
   end
 
   def print_bank_statement
@@ -38,8 +38,8 @@ class Bank
     @transaction.values.flatten.inject(:+)
   end
 
-  def store_transaction(money)
-    transaction_date = Date.today.strftime("%d/%m/%Y")
+  def store_transaction(money, date)
+    transaction_date = date.strftime("%d/%m/%Y")
     if the_date_exist?(transaction_date)
       target = @transaction[transaction_date]
       @transaction[transaction_date] = target.unshift(money)
