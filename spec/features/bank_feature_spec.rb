@@ -6,8 +6,9 @@ describe Bank do
   # so that I can keep my money at a safe place
   # I want to deposit my money
   it "should keep the amount of money when user want to deposit" do
+    transaction_date = Date.today.strftime("%d/%m/%Y")
     bank.deposite(50)
-    expect(bank.account).to eq 50
+    expect( bank.account ).to eq({ transaction_date => [50] })
   end
 
   # As a bank customer
