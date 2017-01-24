@@ -1,5 +1,4 @@
-class Bank
-
+class Account
   attr_reader :transaction
 
   def initialize
