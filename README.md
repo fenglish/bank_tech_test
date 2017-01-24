@@ -20,11 +20,6 @@ date       || credit || debit   || balance
 ###User stories
 ```
 As a bank customer  
-so that I can use the bank
-I want to create my account
-```
-```
-As a bank customer  
 so that I can keep my money at a safe place until I need it
 I want to deposit my money
 ```
@@ -32,11 +27,6 @@ I want to deposit my money
 As a bank customer
 so that I can take out my money whenever I want
 I want to withdraw my money I've deposited
-```
-```
-As a bank customer  
-so that I can see how much I've deposited in the account
-I want to see the balance
 ```
 ```
 As a bank customer
@@ -63,34 +53,37 @@ I want to print my bank statement
 2.3.1 :001 > require 'date'
  => true
 
-2.3.1 :002 > require './lib/bank.rb'
+2.3.1 :002 > require './lib/account.rb'
  => true
 
-2.3.1 :003 > my_bank = Bank.new
- => #<Bank:0x007fb7bc9189a0 @transaction={}>
+2.3.1 :003 > require './lib/transaction.rb'
+ => true
 
-2.3.1 :004 > date1 = Date.new(2012, 1, 10)
+2.3.1 :004 > my_account = Account.new( Transaction.new )
+ => #<Account:0x007fba4c8ddea8 @balance=0, @transaction=#<Transaction:0x007fba4c8ddef8 @record={}>, @transactions=[]>
+
+2.3.1 :005 > date1 = Date.new(2012, 1, 10)
  => #<Date: 2012-01-10 ((2455937j,0s,0n),+0s,2299161j)>
 
-2.3.1 :005 > my_bank.deposite(1000, date1)
- => [1000]
+2.3.1 :006 > my_account.deposit(1000, date1)
+ => [{:date=>"10/01/2012", :credit=>1000, :debit=>"", :balance=>1000}]
 
-2.3.1 :006 > date2 = Date.new(2012, 1, 13)
+2.3.1 :007 > date2 = Date.new(2012, 1, 13)
  => #<Date: 2012-01-13 ((2455940j,0s,0n),+0s,2299161j)>
 
-2.3.1 :007 > my_bank.deposite(2000, date2)
- => [2000]
+2.3.1 :008 > my_account.deposit(2000, date2)
+ => [{:date=>"10/01/2012", :credit=>1000, :debit=>"", :balance=>1000}, {:date=>"13/01/2012", :credit=>2000, :debit=>"", :balance=>3000}]
 
-2.3.1 :008 > date3 = Date.new(2012, 1, 14)
+2.3.1 :009 > date3 = Date.new(2012, 1, 14)
  => #<Date: 2012-01-14 ((2455941j,0s,0n),+0s,2299161j)>
 
-2.3.1 :009 > my_bank.withdraw(500, date3)
- => [-500]
+2.3.1 :010 > my_account.deposit(500, date3)
+ => [{:date=>"10/01/2012", :credit=>1000, :debit=>"", :balance=>1000}, {:date=>"13/01/2012", :credit=>2000, :debit=>"", :balance=>3000}, {:date=>"14/01/2012", :credit=>500, :debit=>"", :balance=>3500}]
 
-2.3.1 :010 > my_bank.print_bank_statement
-date        || credit  || debit   || balance
-14/01/2012  ||         || 500.00  || 2500.00
-13/01/2012  || 2000.00 ||         || 3000.00
-10/01/2012  || 1000.00 ||         || 1000.00
- => nil
+2.3.1 :011 > my_account.print_bank_statement
+date        || credit      || debit       || balance
+14/01/2012  || 500.00      ||             || 3500.00
+13/01/2012  || 2000.00     ||             || 3000.00
+10/01/2012  || 1000.00     ||             || 1000.00
+ => [{:date=>"10/01/2012", :credit=>1000, :debit=>"", :balance=>1000}, {:date=>"13/01/2012", :credit=>2000, :debit=>"", :balance=>3000}, {:date=>"14/01/2012", :credit=>500, :debit=>"", :balance=>3500}]
 ```
