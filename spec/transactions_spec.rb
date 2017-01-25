@@ -16,4 +16,11 @@ describe Transactions do
     expect( transactions.store_data_to_transaction( data ) ).to eq( data )
   end
 
+  it "should store current transaction to all" do
+    allow( transaction ).to receive( :new ).and_return( transaction )
+    transactions.create_transaction
+    transactions.store_current_transaction
+    expect( transactions.all[0] ).to eq( transaction )
+  end
+
 end

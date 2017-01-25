@@ -17,4 +17,8 @@ class Transactions
     @current_transaction.store( data )
   end
 
+  def store_current_transaction
+    @all << @current_transaction
+  end
+
 end
