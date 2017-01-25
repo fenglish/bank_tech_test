@@ -1,27 +1,29 @@
 require 'date'
-require_relative './transaction.rb'
+require_relative './transactions.rb'
 
 class Account
 
   attr_reader :balance
 
-  def initialize( transaction_klass_new )
+  def initialize( transactions_klass_new, transaction_klass )
     @balance = 0
-    @transaction  = transaction_klass_new
-    @transactions = []
+    @transactions = transactions_klass_new
+    @transaction  = transaction_klass
   end
 
   def deposit(money, date)
     @balance += money
-    @transaction.store_transaction( date, money, "", @balance )
-    @transactions << @transaction.record
+    @transactions.create_transaction( @transaction )
+    @transactions.store_data_to_transaction( date, money, "", @balance )
+    @transactions.store_current_transaction
   end
 
   def withdraw(money, date)
     raise "You cannot withdraw over the amount of money you have deposited." if over_withdraw?(money)
     @balance -= money
-    @transaction.store_transaction( date, "", money, @balance )
-    @transactions << @transaction.record
+    @transactions.create_transaction( @transaction )
+    @transactions.store_data_to_transaction( date, "", money, @balance )
+    @transactions.store_current_transaction
   end
 
   def print_bank_statement
@@ -29,7 +31,8 @@ class Account
       puts "No transaction"
     else
       puts header
-      @transactions.reverse_each do |transaction|
+      @transactions.all.reverse_each do |transaction|
+        transaction = transaction.record
         puts set_in_format( transaction[:date], transaction[:credit], transaction[:debit], transaction[:balance] )
       end
     end
@@ -42,7 +45,7 @@ class Account
   end
 
   def no_transactions?
-    @transactions.count == 0
+    @transactions.all.count == 0
   end
 
   def header

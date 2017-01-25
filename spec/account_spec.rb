@@ -2,16 +2,18 @@ require "account"
 
 describe Account do
 
-  subject(:account){ described_class.new(transaction) }
-  let(:transaction){ double :transaction_klass }
+  subject(:account){ described_class.new( transactions, transaction ) }
+  let(:transactions){ double :transactions_klass }
+  let(:transaction ){ double :transaction_klass }
   let(:date1){ double :date_klass }
   let(:date2){ double :date_klass }
 
   before(:each) do
     allow(date1).to receive(:strftime).and_return("01/01/2017")
     allow(date2).to receive(:strftime).and_return("02/01/2017")
-    allow(transaction).to receive(:store_transaction)
-    allow(transaction).to receive(:record).and_return({ date: "01/01/2017", credit: 50.00, debit: "", balance: 50.00 })
+    allow(transactions).to receive(:create_transaction)
+    allow(transactions).to receive(:store_data_to_transaction)
+    allow(transactions).to receive(:store_current_transaction)
   end
 
   it { is_expected.to respond_to :deposit }
@@ -38,9 +40,12 @@ describe Account do
 
   context "#print_bank_statement" do
     it "should print 'No transaction' as a default" do
+      allow(transactions).to receive(:all).and_return([])
       expect{ account.print_bank_statement }.to output("No transaction\n").to_stdout
     end
     it "should print transaction" do
+      allow(transactions).to receive(:all).and_return([transaction])
+      allow(transaction).to receive(:record).and_return({ date: "01/01/2017", credit: 50.00, debit: "", balance: 50.00 })
       account.deposit(100, date1)
       expect{ account.print_bank_statement }.to output("date        || credit      || debit       || balance     \n01/01/2017  || 50.00       ||             || 50.00       \n").to_stdout
     end
