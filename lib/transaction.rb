@@ -1,3 +1,5 @@
+# This class should store single transaction record
+
 class Transaction
 
   attr_reader :record
