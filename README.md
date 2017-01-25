@@ -53,31 +53,31 @@ I want to print my bank statement
 2.3.1 :001 > require './lib/account.rb'
  => true
 
-2.3.1 :002 > my_account = Account.new( Transaction.new )
- => #<Account:0x007fe8be024398 @balance=0, @transaction=#<Transaction:0x007fe8be0243e8 @record={}>, @transactions=[]>
+2.3.1 :002 > my_account = Account.new( Transactions.new, Transaction, BankStatement.new  )
+ => #<Account:0x007fde61172590 @balance=0, @transactions=#<Transactions:0x007fde61172608 @current_transaction=nil, @all=[]>, @transaction=Transaction, @bank_statement=#<BankStatement:0x007fde611725b8>>
 
 2.3.1 :003 > date1 = Date.new(2012, 1, 10)
  => #<Date: 2012-01-10 ((2455937j,0s,0n),+0s,2299161j)>
 
 2.3.1 :004 > my_account.deposit(1000, date1)
- => [{:date=>"10/01/2012", :credit=>1000, :debit=>"", :balance=>1000}]
+ => [#<Transaction:0x007fde61160908 @record={:date=>"10/01/2012", :credit=>1000, :debit=>"", :balance=>1000}>]
 
 2.3.1 :005 > date2 = Date.new(2012, 1, 13)
  => #<Date: 2012-01-13 ((2455940j,0s,0n),+0s,2299161j)>
 
 2.3.1 :006 > my_account.deposit(2000, date2)
- => [{:date=>"10/01/2012", :credit=>1000, :debit=>"", :balance=>1000}, {:date=>"13/01/2012", :credit=>2000, :debit=>"", :balance=>3000}]
+ => [#<Transaction:0x007fde61160908 @record={:date=>"10/01/2012", :credit=>1000, :debit=>"", :balance=>1000}>, #<Transaction:0x007fde611496b8 @record={:date=>"13/01/2012", :credit=>2000, :debit=>"", :balance=>3000}>]
 
 2.3.1 :007 > date3 = Date.new(2012, 1, 14)
  => #<Date: 2012-01-14 ((2455941j,0s,0n),+0s,2299161j)>
 
 2.3.1 :008 > my_account.withdraw(500, date3)
- => [{:date=>"10/01/2012", :credit=>1000, :debit=>"", :balance=>1000}, {:date=>"13/01/2012", :credit=>2000, :debit=>"", :balance=>3000}, {:date=>"14/01/2012", :credit=>"", :debit=>500, :balance=>2500}]
+ => [#<Transaction:0x007fde61160908 @record={:date=>"10/01/2012", :credit=>1000, :debit=>"", :balance=>1000}>, #<Transaction:0x007fde611496b8 @record={:date=>"13/01/2012", :credit=>2000, :debit=>"", :balance=>3000}>, #<Transaction:0x007fde61131888 @record={:date=>"14/01/2012", :credit=>"", :debit=>500, :balance=>2500}>]
 
 2.3.1 :009 > my_account.print_bank_statement
 date        || credit      || debit       || balance
 14/01/2012  ||             || 500.00      || 2500.00
 13/01/2012  || 2000.00     ||             || 3000.00
 10/01/2012  || 1000.00     ||             || 1000.00
- => [{:date=>"10/01/2012", :credit=>1000, :debit=>"", :balance=>1000}, {:date=>"13/01/2012", :credit=>2000, :debit=>"", :balance=>3000}, {:date=>"14/01/2012", :credit=>"", :debit=>500, :balance=>2500}]
+ => [#<Transaction:0x007fde61160908 @record={:date=>"10/01/2012", :credit=>1000, :debit=>"", :balance=>1000}>, #<Transaction:0x007fde611496b8 @record={:date=>"13/01/2012", :credit=>2000, :debit=>"", :balance=>3000}>, #<Transaction:0x007fde61131888 @record={:date=>"14/01/2012", :credit=>"", :debit=>500, :balance=>2500}>]
 ```
