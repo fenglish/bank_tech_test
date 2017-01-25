@@ -1,4 +1,8 @@
+require 'date'
+require_relative './transaction.rb'
+
 class Account
+
   attr_reader :balance
 
   def initialize( transaction_klass_new )
