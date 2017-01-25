@@ -77,13 +77,13 @@ I want to print my bank statement
 2.3.1 :009 > date3 = Date.new(2012, 1, 14)
  => #<Date: 2012-01-14 ((2455941j,0s,0n),+0s,2299161j)>
 
-2.3.1 :010 > my_account.deposit(500, date3)
+2.3.1 :010 > my_account.withdraw(500, date3)
  => [{:date=>"10/01/2012", :credit=>1000, :debit=>"", :balance=>1000}, {:date=>"13/01/2012", :credit=>2000, :debit=>"", :balance=>3000}, {:date=>"14/01/2012", :credit=>500, :debit=>"", :balance=>3500}]
 
 2.3.1 :011 > my_account.print_bank_statement
 date        || credit      || debit       || balance
-14/01/2012  || 500.00      ||             || 3500.00
+14/01/2012  ||             || 500.00      || 2500.00
 13/01/2012  || 2000.00     ||             || 3000.00
 10/01/2012  || 1000.00     ||             || 1000.00
- => [{:date=>"10/01/2012", :credit=>1000, :debit=>"", :balance=>1000}, {:date=>"13/01/2012", :credit=>2000, :debit=>"", :balance=>3000}, {:date=>"14/01/2012", :credit=>500, :debit=>"", :balance=>3500}]
+ => [{:date=>"10/01/2012", :credit=>1000, :debit=>"", :balance=>1000}, {:date=>"13/01/2012", :credit=>2000, :debit=>"", :balance=>3000}, {:date=>"14/01/2012", :credit=>"", :debit=>500, :balance=>2500}]
 ```
