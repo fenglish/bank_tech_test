@@ -2,7 +2,7 @@ require "account"
 require "transactions"
 
 describe Account, "features" do
-  let(:my_account){ Account.new( Transactions.new, Transaction ) }
+  let(:my_account){ Account.new( Transactions.new, Transaction, BankStatement.new ) }
   # As a bank customer
   # so that I can keep my money at a safe place
   # I want to deposit my money

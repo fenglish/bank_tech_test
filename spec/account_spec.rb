@@ -2,9 +2,10 @@ require "account"
 
 describe Account do
 
-  subject(:account){ described_class.new( transactions, transaction ) }
+  subject(:account){ described_class.new( transactions, transaction, bank_statement ) }
   let(:transactions){ double :transactions_klass }
   let(:transaction ){ double :transaction_klass }
+  let(:bank_statement){ double :bank_statement_klass }
   let(:date1){ double :date_klass }
   let(:date2){ double :date_klass }
 
@@ -43,11 +44,10 @@ describe Account do
       allow(transactions).to receive(:all).and_return([])
       expect{ account.print_bank_statement }.to output("No transaction\n").to_stdout
     end
-    it "should print transaction" do
-      allow(transactions).to receive(:all).and_return([transaction])
-      allow(transaction).to receive(:record).and_return({ date: "01/01/2017", credit: 50.00, debit: "", balance: 50.00 })
-      account.deposit(100, date1)
-      expect{ account.print_bank_statement }.to output("date        || credit      || debit       || balance     \n01/01/2017  || 50.00       ||             || 50.00       \n").to_stdout
+    it "should print transactions" do
+      allow(transactions).to receive(:all).and_return([{ date: "01/01/2017", credit: 50.00, debit: "", balance: 50.00 }])
+      allow(bank_statement).to receive(:print).and_return({ date: "01/01/2017", credit: 50.00, debit: "", balance: 50.00 })
+      expect( account.print_bank_statement ).to eq({ date: "01/01/2017", credit: 50.00, debit: "", balance: 50.00 })
     end
   end
 
