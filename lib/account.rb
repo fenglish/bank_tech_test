@@ -11,19 +11,15 @@ class Account
     @transaction  = transaction_klass
   end
 
-  def deposit(money, date)
-    @balance += money
-    @transactions.create_transaction( @transaction )
-    @transactions.store_data_to_transaction( date, money, "", @balance )
-    @transactions.store_current_transaction
+  def deposit( credit, date )
+    @balance += credit
+    pass_data_to_transactions( date, credit, debit = "" )
   end
 
-  def withdraw(money, date)
-    raise "You cannot withdraw over the amount of money you have deposited." if over_withdraw?(money)
-    @balance -= money
-    @transactions.create_transaction( @transaction )
-    @transactions.store_data_to_transaction( date, "", money, @balance )
-    @transactions.store_current_transaction
+  def withdraw( debit, date )
+    raise "You cannot withdraw over the amount of money you have deposited." if over_withdraw?( debit )
+    @balance -= debit
+    pass_data_to_transactions( date, credit = "", debit )
   end
 
   def print_bank_statement
@@ -40,8 +36,8 @@ class Account
 
   private
 
-  def over_withdraw?(money)
-    balance < money
+  def over_withdraw?( debit )
+    balance < debit
   end
 
   def no_transactions?
@@ -66,4 +62,11 @@ class Account
   def set_indent(target)
     target.ljust(12," ")
   end
+
+  def pass_data_to_transactions( date, credit, debit )
+    @transactions.create_transaction( @transaction )
+    @transactions.store_data_to_transaction( date, credit, debit, @balance )
+    @transactions.store_current_transaction
+  end
+
 end
